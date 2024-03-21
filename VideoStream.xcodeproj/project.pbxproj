@@ -13,6 +13,14 @@
 		8C7A78D52BAB8A5000955999 /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A78D42BAB8A5000955999 /* ImmersiveView.swift */; };
 		8C7A78D72BAB8A5200955999 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C7A78D62BAB8A5200955999 /* Assets.xcassets */; };
 		8C7A78DA2BAB8A5200955999 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C7A78D92BAB8A5200955999 /* Preview Assets.xcassets */; };
+		8C7A78E22BAB8AE700955999 /* VideoStreamServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A78E12BAB8AE700955999 /* VideoStreamServer.swift */; };
+		8C7A78E42BAB8C1C00955999 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A78E32BAB8C1C00955999 /* ImageData.swift */; };
+		8C7A78E62BAB8CC700955999 /* video_stream.proto in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A78E52BAB8CC700955999 /* video_stream.proto */; };
+		8C7A78ED2BAB8F3000955999 /* GRPC in Frameworks */ = {isa = PBXBuildFile; productRef = 8C7A78EC2BAB8F3000955999 /* GRPC */; };
+		8C7A78EF2BAB8F3000955999 /* protoc-gen-grpc-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 8C7A78EE2BAB8F3000955999 /* protoc-gen-grpc-swift */; };
+		8CDBFF912BABCC0E00B4061F /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDBFF902BABCC0E00B4061F /* AppModel.swift */; };
+		8CE28E4F2BACC0EC006B37C4 /* video_stream.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE28E4D2BACC0EC006B37C4 /* video_stream.pb.swift */; };
+		8CE28E502BACC0EC006B37C4 /* video_stream.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE28E4E2BACC0EC006B37C4 /* video_stream.grpc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +32,12 @@
 		8C7A78D62BAB8A5200955999 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C7A78D92BAB8A5200955999 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8C7A78DB2BAB8A5200955999 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C7A78E12BAB8AE700955999 /* VideoStreamServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStreamServer.swift; sourceTree = "<group>"; };
+		8C7A78E32BAB8C1C00955999 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		8C7A78E52BAB8CC700955999 /* video_stream.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = video_stream.proto; sourceTree = "<group>"; };
+		8CDBFF902BABCC0E00B4061F /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		8CE28E4D2BACC0EC006B37C4 /* video_stream.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = video_stream.pb.swift; sourceTree = "<group>"; };
+		8CE28E4E2BACC0EC006B37C4 /* video_stream.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = video_stream.grpc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C7A78ED2BAB8F3000955999 /* GRPC in Frameworks */,
 				8C7A78CF2BAB8A5000955999 /* RealityKitContent in Frameworks */,
+				8C7A78EF2BAB8F3000955999 /* protoc-gen-grpc-swift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +74,18 @@
 		8C7A78CB2BAB8A5000955999 /* VideoStream */ = {
 			isa = PBXGroup;
 			children = (
+				8CE28E4E2BACC0EC006B37C4 /* video_stream.grpc.swift */,
+				8CE28E4D2BACC0EC006B37C4 /* video_stream.pb.swift */,
 				8C7A78D02BAB8A5000955999 /* VideoStreamApp.swift */,
 				8C7A78D22BAB8A5000955999 /* ContentView.swift */,
 				8C7A78D42BAB8A5000955999 /* ImmersiveView.swift */,
 				8C7A78D62BAB8A5200955999 /* Assets.xcassets */,
 				8C7A78DB2BAB8A5200955999 /* Info.plist */,
 				8C7A78D82BAB8A5200955999 /* Preview Content */,
+				8C7A78E12BAB8AE700955999 /* VideoStreamServer.swift */,
+				8C7A78E32BAB8C1C00955999 /* ImageData.swift */,
+				8C7A78E52BAB8CC700955999 /* video_stream.proto */,
+				8CDBFF902BABCC0E00B4061F /* AppModel.swift */,
 			);
 			path = VideoStream;
 			sourceTree = "<group>";
@@ -102,6 +124,8 @@
 			name = VideoStream;
 			packageProductDependencies = (
 				8C7A78CE2BAB8A5000955999 /* RealityKitContent */,
+				8C7A78EC2BAB8F3000955999 /* GRPC */,
+				8C7A78EE2BAB8F3000955999 /* protoc-gen-grpc-swift */,
 			);
 			productName = VideoStream;
 			productReference = 8C7A78C92BAB8A5000955999 /* VideoStream.app */;
@@ -131,6 +155,9 @@
 				Base,
 			);
 			mainGroup = 8C7A78C02BAB8A4F00955999;
+			packageReferences = (
+				8C7A78EB2BAB8F2F00955999 /* XCRemoteSwiftPackageReference "grpc-swift" */,
+			);
 			productRefGroup = 8C7A78CA2BAB8A5000955999 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -157,8 +184,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C7A78E22BAB8AE700955999 /* VideoStreamServer.swift in Sources */,
 				8C7A78D32BAB8A5000955999 /* ContentView.swift in Sources */,
+				8CE28E4F2BACC0EC006B37C4 /* video_stream.pb.swift in Sources */,
 				8C7A78D12BAB8A5000955999 /* VideoStreamApp.swift in Sources */,
+				8CE28E502BACC0EC006B37C4 /* video_stream.grpc.swift in Sources */,
+				8C7A78E42BAB8C1C00955999 /* ImageData.swift in Sources */,
+				8CDBFF912BABCC0E00B4061F /* AppModel.swift in Sources */,
+				8C7A78E62BAB8CC700955999 /* video_stream.proto in Sources */,
 				8C7A78D52BAB8A5000955999 /* ImmersiveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,10 +393,31 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		8C7A78EB2BAB8F2F00955999 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.21.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		8C7A78CE2BAB8A5000955999 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
+		};
+		8C7A78EC2BAB8F3000955999 /* GRPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C7A78EB2BAB8F2F00955999 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = GRPC;
+		};
+		8C7A78EE2BAB8F3000955999 /* protoc-gen-grpc-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C7A78EB2BAB8F2F00955999 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			productName = "protoc-gen-grpc-swift";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

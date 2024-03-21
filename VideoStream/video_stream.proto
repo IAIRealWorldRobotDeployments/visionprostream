@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package video;
+
+service VideoStream {
+  rpc SendFrame(stream Frame) returns (StreamAck);
+}
+
+message Frame {
+  bytes left = 1;
+}
+
+message StreamAck {
+  string message = 1;
+}

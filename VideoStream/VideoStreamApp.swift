@@ -9,13 +9,15 @@ import SwiftUI
 
 @main
 struct VideoStreamApp: App {
+    @StateObject private var imageData = ImageData()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
 
         ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
+            ImmersiveView().environmentObject(imageData)
         }
     }
 }
