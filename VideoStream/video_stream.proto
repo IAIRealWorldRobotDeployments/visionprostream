@@ -8,6 +8,7 @@ service VideoStream {
 
 message Frame {
   bytes left = 1;
+  bytes right = 2;
 }
 
 message StreamAck {

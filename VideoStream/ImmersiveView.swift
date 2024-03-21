@@ -26,24 +26,27 @@ struct ImmersiveView: View {
             
         } update: { updateContent in
 //            print(imageData.image?.size)
-            let image = imageData.image!
-            let cg = image.cgImage!
+            let imageLeft = imageData.left!
+            let imageRight = imageData.right!
             
             let skyBoxEntity = updateContent.entities[1]
             let sphereEntity = updateContent.entities[0].findEntity(named: "Sphere")
             var stereo_material = sphereEntity?.components[ModelComponent.self]?.materials[0] as! ShaderGraphMaterial
             do{
-                let texture =  try TextureResource.generate(from: cg, options: TextureResource.CreateOptions.init(semantic: nil))
-                try stereo_material.setParameter(name: "left", value: .textureResource(texture))
+                let textureLeft =  try TextureResource.generate(from: imageLeft.cgImage!, options: TextureResource.CreateOptions.init(semantic: nil))
+                let textureRight =  try TextureResource.generate(from: imageRight.cgImage!, options: TextureResource.CreateOptions.init(semantic: nil))
+//                try stereo_material.setParameter(name: "left", value: .textureResource(textureLeft))
+                try stereo_material.setParameter(name: "right", value: .textureResource(textureRight))
             } catch {
-                print("error loading texture")
+                print("error loading texture \(error)")
             }
             skyBoxEntity.components[ModelComponent.self]?.materials = [stereo_material]
         }
         .onAppear {
             VideoStreamServer.shared.start { newImage in
                 DispatchQueue.main.async {
-                    imageData.image = newImage
+                    imageData.left = newImage.left
+                    imageData.right = newImage.right
                 }
             }
         }

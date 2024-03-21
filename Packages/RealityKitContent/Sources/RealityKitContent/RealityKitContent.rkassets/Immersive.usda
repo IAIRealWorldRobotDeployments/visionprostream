@@ -85,8 +85,8 @@ def Xform "Root"
         def Shader "GeometrySwitchCameraIndex"
         {
             uniform token info:id = "ND_realitykit_geometry_switch_cameraindex_color3"
-            color3f inputs:left
-            color3f inputs:mono.connect = </Root/StereoMaterial/Image.outputs:out>
+            color3f inputs:left.connect = None
+            color3f inputs:mono.connect = </Root/StereoMaterial/Image_1.outputs:out>
             color3f inputs:right
             color3f outputs:out
             float2 ui:nodegraph:node:pos = (236.3125, 88.62109)
@@ -114,7 +114,10 @@ def Xform "Root"
         {
             uniform token info:id = "ND_image_color3"
             prepend asset inputs:file.connect = </Root/StereoMaterial.inputs:right>
+            string inputs:filtertype
             float2 inputs:texcoord
+            string inputs:vaddressmode
+            color3f outputs:out
             float2 ui:nodegraph:node:pos = (-25.835938, 259.21484)
             float2 ui:nodegraph:node:size = (148.5, 210.5)
             int ui:nodegraph:node:stackingOrder = 33

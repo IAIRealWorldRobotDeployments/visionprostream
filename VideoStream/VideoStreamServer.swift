@@ -5,14 +5,14 @@ import UIKit
 class VideoStreamServer {
     private var server: EventLoopFuture<Server>?
     private let group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
-    private var newImageHandler: ((UIImage) -> Void)?
+    private var newImageHandler: ((StereoImage) -> Void)?
 
     // Singleton instance
     static let shared = VideoStreamServer()
 
     private init() {}
 
-    func start(newImageHandler: @escaping (UIImage) -> Void) {
+    func start(newImageHandler: @escaping (StereoImage) -> Void) {
         self.newImageHandler = newImageHandler
         
         let host = "0.0.0.0"
@@ -43,19 +43,21 @@ class VideoStreamServer {
 final class VideoStreamProvider: Video_VideoStreamAsyncProvider {
     var interceptors: Video_VideoStreamServerInterceptorFactoryProtocol?
 
-    private var imageUpdateHandler: (UIImage) -> Void
+    private var imageUpdateHandler: (StereoImage) -> Void
 
-    init(imageUpdateHandler: @escaping (UIImage) -> Void) {
+    init(imageUpdateHandler: @escaping (StereoImage) -> Void) {
         self.imageUpdateHandler = imageUpdateHandler
     }
     
        
     func sendFrame(requestStream: GRPCAsyncRequestStream<Video_Frame>, context: GRPCAsyncServerCallContext) async throws -> Video_StreamAck {
         for try await frame in requestStream {
-            let imageData = frame.left
-            if let image = UIImage(data: imageData) {
+            let imageDataLeft = frame.left
+            let imageDataRight = frame.right
+            if let imageLeft = UIImage(data: imageDataLeft), let imageRight = UIImage(data: imageDataRight) {
                 DispatchQueue.main.async {
-                    self.imageUpdateHandler(image)
+                    let stereoImage = StereoImage(left: imageLeft, right: imageRight)
+                    self.imageUpdateHandler(stereoImage)
                 }
             }
         }

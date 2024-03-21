@@ -27,6 +27,8 @@ struct Video_Frame {
 
   var left: Data = Data()
 
+  var right: Data = Data()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -57,6 +59,7 @@ extension Video_Frame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
   static let protoMessageName: String = _protobuf_package + ".Frame"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "left"),
+    2: .same(proto: "right"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -66,6 +69,7 @@ extension Video_Frame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularBytesField(value: &self.left) }()
+      case 2: try { try decoder.decodeSingularBytesField(value: &self.right) }()
       default: break
       }
     }
@@ -75,11 +79,15 @@ extension Video_Frame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
     if !self.left.isEmpty {
       try visitor.visitSingularBytesField(value: self.left, fieldNumber: 1)
     }
+    if !self.right.isEmpty {
+      try visitor.visitSingularBytesField(value: self.right, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Video_Frame, rhs: Video_Frame) -> Bool {
     if lhs.left != rhs.left {return false}
+    if lhs.right != rhs.right {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
