@@ -5,28 +5,31 @@ import video_stream_pb2_grpc
 
 def generate_frames():
     cap = cv2.VideoCapture(0)
+    resolution = (640, 480)
+    print(f"Resolution: {resolution}")
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
     # while True:
     while True:
-        ret, frame = cap.read()
-	#placeholder for second camera
-        frame2 = cv2.imread("./car.jpg")
+        ret, frame = cap.read() # reads frame that has stereo images side by side
         if not ret:
             print("failed to grab")
-            # break
+            break
+
+        # split image in half
+        w = image.shape[1]//2
+        h = image.shape[0]
+        im_left = image[:, :w]
+        im_right = image[:, w:2*w]
         
-        _, buffer = cv2.imencode('.jpg', frame)
-        _, buffer2 = cv2.imencode('.jpg', frame2)
+        _, buffer = cv2.imencode('.jpg', im_left)
+        _, buffer2 = cv2.imencode('.jpg', im_right)
         print("encoded both")
         yield video_stream_pb2.Frame(left=buffer.tobytes(), right=buffer2.tobytes())
 
 def run():
-    channel = grpc.insecure_channel('10.29.169.33:50051')
+    channel = grpc.insecure_channel('10.29.169.33:50051') # CHANGE TO VISION PRO IP
     stub = video_stream_pb2_grpc.VideoStreamStub(channel)
-    # response = stub.Hello(video_stream_pb2.HelloRequest(greeting='ClientHere'))
-    # if response.reply:
-    #     print(f"connection established: {response.reply}")
-    # else:
-    #     print("failed to establish connection")
     response = stub.SendFrame(generate_frames())
     print("streamack message:", response.message)
 
