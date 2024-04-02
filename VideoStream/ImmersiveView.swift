@@ -9,6 +9,9 @@ import SwiftUI
 import RealityKit
 import RealityKitContent
 
+
+
+
 struct ImmersiveView: View {
     @EnvironmentObject var imageData: ImageData
     
@@ -17,30 +20,43 @@ struct ImmersiveView: View {
 //        var sphereEntity: Entity? = nil
 //        var texture: TextureResource? = nil
         RealityView { content in
+//            content.add(anchor)
             if let scene = try? await Entity(named:"Immersive", in: realityKitContentBundle) {
                 content.add(scene)
             }
             let skyBox = createSkyBox()!
-            content.add(skyBox)
+            let anchor = AnchorEntity(.head)
+//            content.add(skyBox)
+//            anchor.anchoring.trackingMode = .once
+            skyBox.setParent(anchor)
+            content.add(anchor)
             
-            
-        } update: { updateContent in
+            skyBox.transform.translation.z = -4.0
+            skyBox.transform.translation.y = -1.0
+        }
+        update: { updateContent in
 //            print(imageData.image?.size)
             let imageLeft = imageData.left!
             let imageRight = imageData.right!
             
-            let skyBoxEntity = updateContent.entities[1]
+            let anchor: Entity = updateContent.entities[1]
+            let skyBoxEntity = anchor.children[0]
             let sphereEntity = updateContent.entities[0].findEntity(named: "Sphere")
             var stereo_material = sphereEntity?.components[ModelComponent.self]?.materials[0] as! ShaderGraphMaterial
+
             do{
                 let textureLeft =  try TextureResource.generate(from: imageLeft.cgImage!, options: TextureResource.CreateOptions.init(semantic: nil))
                 let textureRight =  try TextureResource.generate(from: imageRight.cgImage!, options: TextureResource.CreateOptions.init(semantic: nil))
-//                try stereo_material.setParameter(name: "left", value: .textureResource(textureLeft))
+//                skyBoxMaterial.color = .init(texture: .init(textureRight))
+                print("texture success")
+                try stereo_material.setParameter(name: "left", value: .textureResource(textureLeft))
                 try stereo_material.setParameter(name: "right", value: .textureResource(textureRight))
             } catch {
                 print("error loading texture \(error)")
             }
+            print("trying to add material")
             skyBoxEntity.components[ModelComponent.self]?.materials = [stereo_material]
+            print("added material successfully")
         }
         .onAppear {
             VideoStreamServer.shared.start { newImage in
@@ -55,10 +71,10 @@ struct ImmersiveView: View {
 
 private func createSkyBox() -> Entity? {
     let skyBoxEntity = Entity()
-    let largePlane = MeshResource.generatePlane(width: 12.88, height: 7.96)
+    let largePlane = MeshResource.generatePlane(width: 12.8, height: 9.6)
     var skyBoxMaterial = UnlitMaterial()
     do{
-        let texture =  try TextureResource.load(named:"LoadingImage")
+        let texture =  try TextureResource.load(named:"LoadingImageLeft")
         skyBoxMaterial.color = .init(texture: .init(texture))
     } catch {
         print("error loading texture")
@@ -66,7 +82,7 @@ private func createSkyBox() -> Entity? {
     skyBoxEntity.components.set(
         ModelComponent(mesh: largePlane, materials: [skyBoxMaterial])
     )
-    skyBoxEntity.setPosition(SIMD3<Float>(x:0, y:1.5, z:-5), relativeTo: nil)
+//    skyBoxEntity.setPosition(SIMD3<Float>(x:0, y:0, z:-4), relativeTo: nil)
     return skyBoxEntity
 }
 

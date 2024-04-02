@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct VideoStreamApp: App {
     @StateObject private var imageData = ImageData()
+    @State var immersionMode: ImmersionStyle = .full
     
     var body: some Scene {
         WindowGroup {
@@ -19,5 +20,6 @@ struct VideoStreamApp: App {
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView().environmentObject(imageData)
         }
+        .immersionStyle(selection: $immersionMode, in: .full)
     }
 }

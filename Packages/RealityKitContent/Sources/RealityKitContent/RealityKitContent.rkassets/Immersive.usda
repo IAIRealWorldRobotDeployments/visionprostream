@@ -26,7 +26,7 @@ def Xform "Root"
             bindMaterialAs = "weakerThanDescendants"
         )
         double radius = 0.1
-        float3 xformOp:translate = (0, -1.3472023, 0)
+        float3 xformOp:translate = (0, 0.11346012, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
         def Material "DefaultMaterial"
@@ -54,12 +54,12 @@ def Xform "Root"
                 }
             }
         )
-        asset inputs:right (
+        asset inputs:right = @rightbridge.jpeg@ (
             customData = {
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-222.72266, 181.78516)
                     float2 sizeInSubgraph = (115.5, 57.5)
-                    int stackingOrderInSubgraph = 2
+                    int stackingOrderInSubgraph = 36
                 }
             }
         )
@@ -85,9 +85,9 @@ def Xform "Root"
         def Shader "GeometrySwitchCameraIndex"
         {
             uniform token info:id = "ND_realitykit_geometry_switch_cameraindex_color3"
-            color3f inputs:left.connect = None
-            color3f inputs:mono.connect = </Root/StereoMaterial/Image_1.outputs:out>
-            color3f inputs:right
+            color3f inputs:left.connect = </Root/StereoMaterial/Image.outputs:out>
+            color3f inputs:mono.connect = None
+            color3f inputs:right.connect = </Root/StereoMaterial/Image_1.outputs:out>
             color3f outputs:out
             float2 ui:nodegraph:node:pos = (236.3125, 88.62109)
             float2 ui:nodegraph:node:size = (237, 153.5)
