@@ -9,33 +9,23 @@ import SwiftUI
 import RealityKit
 import RealityKitContent
 
-
-
-
 struct ImmersiveView: View {
     @EnvironmentObject var imageData: ImageData
     
     var body: some View {
-//        var skyBoxEntity: Entity? = nil
-//        var sphereEntity: Entity? = nil
-//        var texture: TextureResource? = nil
         RealityView { content in
-//            content.add(anchor)
             if let scene = try? await Entity(named:"Immersive", in: realityKitContentBundle) {
                 content.add(scene)
             }
             let skyBox = createSkyBox()!
             let anchor = AnchorEntity(.head)
-//            content.add(skyBox)
-//            anchor.anchoring.trackingMode = .once
             skyBox.setParent(anchor)
             content.add(anchor)
             
-            skyBox.transform.translation.z = -4.0
+            skyBox.transform.translation.z = -5.0
             skyBox.transform.translation.y = -1.0
         }
         update: { updateContent in
-//            print(imageData.image?.size)
             let imageLeft = imageData.left!
             let imageRight = imageData.right!
             
@@ -43,6 +33,7 @@ struct ImmersiveView: View {
             let skyBoxEntity = anchor.children[0]
             let sphereEntity = updateContent.entities[0].findEntity(named: "Sphere")
             var stereo_material = sphereEntity?.components[ModelComponent.self]?.materials[0] as! ShaderGraphMaterial
+//            var skyBoxMaterial = UnlitMaterial()
 
             do{
                 let textureLeft =  try TextureResource.generate(from: imageLeft.cgImage!, options: TextureResource.CreateOptions.init(semantic: nil))

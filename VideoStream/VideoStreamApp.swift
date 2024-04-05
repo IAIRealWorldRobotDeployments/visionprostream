@@ -21,5 +21,6 @@ struct VideoStreamApp: App {
             ImmersiveView().environmentObject(imageData)
         }
         .immersionStyle(selection: $immersionMode, in: .full)
+        .upperLimbVisibility(.hidden)
     }
 }

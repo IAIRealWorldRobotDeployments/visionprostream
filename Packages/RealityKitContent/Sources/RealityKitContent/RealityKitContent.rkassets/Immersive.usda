@@ -50,7 +50,7 @@ def Xform "Root"
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-227.51172, -0.70703125)
                     float2 sizeInSubgraph = (115.5, 57.5)
-                    int stackingOrderInSubgraph = 35
+                    int stackingOrderInSubgraph = 38
                 }
             }
         )
@@ -59,7 +59,7 @@ def Xform "Root"
                 dictionary realitykit = {
                     float2 positionInSubgraph = (-222.72266, 181.78516)
                     float2 sizeInSubgraph = (115.5, 57.5)
-                    int stackingOrderInSubgraph = 36
+                    int stackingOrderInSubgraph = 37
                 }
             }
         )

@@ -2,6 +2,7 @@ import cv2
 import grpc
 import video_stream_pb2
 import video_stream_pb2_grpc
+import numpy as np
 
 def generate_frames():
     cap = cv2.VideoCapture(0)
@@ -28,11 +29,11 @@ def generate_frames():
         yield video_stream_pb2.Frame(left=buffer.tobytes(), right=buffer2.tobytes())
 
 def run():
-    channel = grpc.insecure_channel('10.29.245.73:50051')
+    channel = grpc.insecure_channel('10.31.169.198:50051')
     stub = video_stream_pb2_grpc.VideoStreamStub(channel)
     response = stub.SendFrame(generate_frames())
     print("streamack message:", response.message)
 
 if __name__ == '__main__':
-    run()
-#    generate_frames()
+   run()
+#   generate_frames()
