@@ -5,9 +5,8 @@ import video_stream_pb2_grpc
 import numpy as np
 
 def generate_frames():
-    cap = cv2.VideoCapture(0)
-    resolution = (640, 480)
-#    print(f"Resolution: {resolution}")
+    cap = cv2.VideoCapture(0) # MODIFY TO CORRECT PORT
+    resolution = (1280, 480)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
     while True:
@@ -36,4 +35,3 @@ def run():
 
 if __name__ == '__main__':
    run()
-#   generate_frames()
