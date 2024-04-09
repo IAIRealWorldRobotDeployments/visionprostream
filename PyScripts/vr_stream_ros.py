@@ -45,8 +45,8 @@ class StereoStreamROS(Node):
 
     def read(self):
         # return the frame most recently read
-        cap = cv2.VideoCapture(0)
-        resolution = (640, 480)
+        cap = cv2.VideoCapture(0) # UPDATE CAMERA PORT
+        resolution = (1280, 480)
     #    print(f"Resolution: {resolution}")
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, resolution[1])
@@ -78,7 +78,7 @@ class StereoStreamROS(Node):
         
 def run():
     vr_stream = StereoStreamROS().start()
-    channel = grpc.insecure_channel('128.31.33.110:50051')
+    channel = grpc.insecure_channel('128.31.33.110:50051') # UPDATE IP ADDRESS
     stub = video_stream_pb2_grpc.VideoStreamStub(channel)
     response = stub.SendFrame(vr_stream.read())
     print("streamack message:", response.message)
