@@ -22,8 +22,8 @@ struct ImmersiveView: View {
             skyBox.setParent(anchor)
             content.add(anchor)
             
-            skyBox.transform.translation.z = -5.0
-            skyBox.transform.translation.y = -1.0
+            skyBox.transform.translation.z = -6.0
+            skyBox.transform.translation.y = 0.2
         }
         update: { updateContent in
             let imageLeft = imageData.left!
