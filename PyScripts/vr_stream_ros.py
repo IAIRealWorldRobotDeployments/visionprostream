@@ -12,7 +12,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 
 class StereoStreamROS(Node):
-    def __init__(self, src=0, resolution=(640,480), name="StereoVideoStream"):
+    def __init__(self, src=0, resolution=(1280,480), name="StereoVideoStream"):
 
         # initialize the thread name
         self.name = name
@@ -45,7 +45,7 @@ class StereoStreamROS(Node):
 
     def read(self):
         # return the frame most recently read
-        cap = cv2.VideoCapture(0) # UPDATE CAMERA PORT
+        cap = cv2.VideoCapture(16) # UPDATE CAMERA PORT
         resolution = (1280, 480)
     #    print(f"Resolution: {resolution}")
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, resolution[0])
@@ -66,10 +66,12 @@ class StereoStreamROS(Node):
             _, buffer = cv2.imencode('.jpg', im_left)
             _, buffer2 = cv2.imencode('.jpg', im_right)
             print("encoded both")
-            self.publish(im_left) #TODO: also publish im_right
+            self.publish(im_left, im_right)
             yield video_stream_pb2.Frame(left=buffer.tobytes(), right=buffer2.tobytes())
 
-    def publish(self, image):
+    def publish(self, image_data_left, image_data_right):
+        joint_image = np.hstack((image_data_left, image_data_right))
+        image = self.bridge.cv2_to_imgmsg(joint_image, encoding = 'passthrough')
         image.header.stamp = self.image_capture_time
         self.publisher.publish(image)
     def stop(self):
@@ -78,7 +80,7 @@ class StereoStreamROS(Node):
         
 def run():
     vr_stream = StereoStreamROS().start()
-    channel = grpc.insecure_channel('128.31.33.110:50051') # UPDATE IP ADDRESS
+    channel = grpc.insecure_channel('128.31.33.110:12345') # UPDATE IP ADDRESS
     stub = video_stream_pb2_grpc.VideoStreamStub(channel)
     response = stub.SendFrame(vr_stream.read())
     print("streamack message:", response.message)
